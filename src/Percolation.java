@@ -4,10 +4,11 @@ import java.util.Arrays;
 
 public class Percolation {
     private int[][] Grid;
+    private WeightedQuickUnionUF GridMap;
 
     public Percolation(int n) {
-        int[][] Grid = new int[n][n];
-        WeightedQuickUnionUF UFMap = new WeightedQuickUnionUF(n);
+        Grid = new int[n][n];
+        GridMap = new WeightedQuickUnionUF(n);
 
         for (int i = 0; i < n; i++)
             for (int j = 0; j < n; j++)
