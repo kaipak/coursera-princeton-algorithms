@@ -13,25 +13,25 @@
  *  Hello, World
  *
  **************************************************************************** */
+
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
-import java.lang.IllegalArgumentException;
 
 public class Percolation {
-    private int gridSize;
+    private final int gridSize;
     private int openSites;
-    private int virtUpper;
-    private int virtLower;
+    private final int virtUpper;
+    private final int virtLower;
     private int[][] grid;
-    private WeightedQuickUnionUF gridMap;
+    private final WeightedQuickUnionUF gridMap;
 
     public Percolation(int n) {
-       /* As API requirements state that the grid should start with (1, 1), we
-        * initialize n + 1 rows and columns.
-        *
-        * We'll use virtual nodes at beginning and end of WeightedQuickUnionUF
-        * object so we can determine if the system percolates without having to
-        * search through all nodes.
-        */
+        /* As API requirements state that the grid should start with (1, 1), we
+         * initialize n + 1 rows and columns.
+         *
+         * We'll use virtual nodes at beginning and end of WeightedQuickUnionUF
+         * object so we can determine if the system percolates without having to
+         * search through all nodes.
+         */
         grid = new int[n + 1][n + 1];
         gridSize = n;
         openSites = 0;
@@ -40,7 +40,7 @@ public class Percolation {
         // 0th and n * n + 2th positions on gridMap
         gridMap = new WeightedQuickUnionUF(n * n + 2);
         virtUpper = 0;
-        virtLower = (int)Math.pow(gridSize, 2) + 1;
+        virtLower = gridSize * gridSize + 1;
     }
 
     private int xyTo1D(int m, int n) {
@@ -88,7 +88,7 @@ public class Percolation {
 
     public boolean isOpen(int m, int n) {
         throwsOutOfBoundsException(m, n);
-        if(grid[m][n] == 1)
+        if (grid[m][n] == 1)
             return true;
         return false;
     }
@@ -96,7 +96,7 @@ public class Percolation {
     public boolean isFull(int m, int n) {
         throwsOutOfBoundsException(m, n);
         int siteX = xyTo1D(m, n);
-        if(grid[m][n] == 1 && gridMap.connected(siteX, virtUpper))
+        if (grid[m][n] == 1 && gridMap.connected(siteX, virtUpper))
             return true;
         return false;
     }

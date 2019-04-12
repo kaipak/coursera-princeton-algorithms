@@ -1,27 +1,26 @@
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdIn;
 
 public class PercolationStats {
     private double[] results;
-    private int numSites;
-    private int trials;
-    private double mean;
-    private double stddev;
+    private final int numSites;
+    private final int trials;
+    private final double mean;
+    private final double stddev;
+    public static final double CONFIDENCE_95 = 1.96;
 
     public PercolationStats(int n, int t) {
         numSites = n * n;
         trials = t;
         results = new double[trials];
-        for(int i = 0; i < trials; i++) {
+        for (int i = 0; i < trials; i++) {
             Percolation perc = new Percolation(n);
-            while(!perc.percolates()) {
+            while (!perc.percolates()) {
                 int rowNum = StdRandom.uniform(1, n + 1);
                 int colNum = StdRandom.uniform(1, n + 1);
                 perc.open(rowNum, colNum);
             }
-            results[i] = (double)perc.numberOfOpenSites() / (double)numSites;
+            results[i] = (double) perc.numberOfOpenSites() / (double) numSites;
         }
         mean = StdStats.mean(results);
         stddev = StdStats.stddev(results);
@@ -36,11 +35,11 @@ public class PercolationStats {
     }
 
     public double confidenceLo() {
-        return mean - (1.96 * stddev / Math.sqrt(trials));
+        return mean - (CONFIDENCE_95 * stddev / Math.sqrt(trials));
     }
 
     public double confidenceHi() {
-        return mean + (1.96 * stddev / Math.sqrt(trials));
+        return mean + (CONFIDENCE_95 * stddev / Math.sqrt(trials));
     }
 
     public static void main(String[] args) {
