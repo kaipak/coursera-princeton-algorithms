@@ -7,9 +7,13 @@ public class PercolationStats {
     private final int trials;
     private final double mean;
     private final double stddev;
-    public static final double CONFIDENCE_95 = 1.96;
+    private final double CONFIDENCE_95 = 1.96;
 
     public PercolationStats(int n, int t) {
+        if (n <= 0 | t <= 0) {
+            throw new IllegalArgumentException("n and t must be positive " +
+                    "integers.");
+        }
         numSites = n * n;
         trials = t;
         results = new double[trials];

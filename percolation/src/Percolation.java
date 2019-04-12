@@ -32,6 +32,9 @@ public class Percolation {
          * object so we can determine if the system percolates without having to
          * search through all nodes.
          */
+        if (n <= 0) {
+            throw new IllegalArgumentException("n must be a positive integer");
+        }
         grid = new int[n + 1][n + 1];
         gridSize = n;
         openSites = 0;
