@@ -9,6 +9,9 @@
  *  % javac Deque.java
  *
  **************************************************************************** */
+
+import java.util.Iterator;
+
 public class Deque<Item> implements Iterable<Item> {
     private Node first;
     private Node last;
@@ -34,7 +37,7 @@ public class Deque<Item> implements Iterable<Item> {
 
     public void addFirst(Item item) {
         Node oldfirst = first;
-        first = new Node;
+        first = new Node();
         first.item = item;
         first.next = oldfirst;
         n++;
@@ -42,20 +45,52 @@ public class Deque<Item> implements Iterable<Item> {
 
     public void addLast(Item item) {
         Node oldlast = last;
-        last = new Node;
+        last = new Node();
         last.item = item;
         oldlast.next = last;
         last.previous = oldlast;
+        n++;
     }
 
     public Item removeFirst() {
-        
-
+        return first.item;
     }
 
-    public Item removeLast()                 // remove and return the item from the end
+    public Item removeLast() {
+        return last.item;
+    }                 // remove and return the item
+    // from the end
 
-    public Iterator<Item> iterator()         // return an iterator over items in order from front to end
+    public Iterator<Item> iterator() {
+        return new ForwardIterator();
+    }
 
-    public static void main(String[] args)   // unit testing (optional)
+    private class ForwardIterator implements Iterator<Item> {
+        private Node current = first;
+
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        public void remove() {
+        }
+
+        public Item next() {
+            Item item = current.item;
+            current = current.next;
+            return item;
+        }
+    }
+
+    public static void main(String[] args) {
+        Deque<Integer> test = new Deque<Integer>();
+        test.addFirst(2);
+        test.addFirst(4);
+        test.addFirst(6);
+        for (int i : test) {
+            System.out.println(i);
+        }
+        System.out.println("Size: " + test.size());
+
+    }
 }
