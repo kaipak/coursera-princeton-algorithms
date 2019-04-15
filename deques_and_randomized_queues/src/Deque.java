@@ -11,6 +11,7 @@
  **************************************************************************** */
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class Deque<Item> implements Iterable<Item> {
     private Node first;
@@ -53,7 +54,13 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     public Item removeFirst() {
-        return first.item;
+        if (isEmpty()) {
+            throw new NoSuchElementException("Nothing to remove!");
+        }
+        Item returnItem = first.item;
+        first = first.next;
+        --n;
+        return returnItem;
     }
 
     public Item removeLast() {
@@ -91,6 +98,13 @@ public class Deque<Item> implements Iterable<Item> {
             System.out.println(i);
         }
         System.out.println("Size: " + test.size());
-
+        System.out.println(test.isEmpty());
+        System.out.println("Getting first" + test.removeFirst());
+        System.out.println("Getting first" + test.removeFirst());
+        System.out.println("Getting first" + test.removeFirst());
+        System.out.println("Getting first" + test.removeFirst());
+        for (int i : test) {
+            System.out.println(i);
+        }
     }
 }
