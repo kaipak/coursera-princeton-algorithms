@@ -24,10 +24,6 @@ public class Deque<Item> implements Iterable<Item> {
         Node previous;
     }
 
-    public Deque() {
-        n = 0;
-    }                           // construct an empty deque
-
     public boolean isEmpty() {
         return n == 0;
     }
@@ -41,6 +37,9 @@ public class Deque<Item> implements Iterable<Item> {
         first = new Node();
         first.item = item;
         first.next = oldfirst;
+        if (isEmpty()) {
+            last = first;
+        }
         n++;
     }
 
@@ -57,14 +56,28 @@ public class Deque<Item> implements Iterable<Item> {
         if (isEmpty()) {
             throw new NoSuchElementException("Nothing to remove!");
         }
-        Item returnItem = first.item;
-        first = first.next;
-        --n;
-        return returnItem;
+        Item item = first.item;
+        --n; // decrement first so we're up to date on number of items
+
+        // if block handles case where we're removing last item
+        if (!isEmpty()) {
+            first = first.next;
+        } else {
+            first = null;
+            last = null;
+        }
+        return item;
     }
 
     public Item removeLast() {
-        return last.item;
+        if (isEmpty()) {
+            throw new NoSuchElementException("Nothing to remove!");
+        }
+        Item returnItem = last.item;
+        last = last.previous; // 2nd to last node is last
+        last.next = null; // now make previous last empty
+        --n;
+        return returnItem;
     }                 // remove and return the item
     // from the end
 
@@ -94,17 +107,25 @@ public class Deque<Item> implements Iterable<Item> {
         test.addFirst(2);
         test.addFirst(4);
         test.addFirst(6);
+        test.addLast(12);
+        test.addLast(24);
         for (int i : test) {
             System.out.println(i);
         }
         System.out.println("Size: " + test.size());
         System.out.println(test.isEmpty());
         System.out.println("Getting first" + test.removeFirst());
-        System.out.println("Getting first" + test.removeFirst());
-        System.out.println("Getting first" + test.removeFirst());
-        System.out.println("Getting first" + test.removeFirst());
         for (int i : test) {
             System.out.println(i);
         }
+        System.out.println("Getting last" + test.removeLast());
+        for (int i : test) {
+            System.out.println(i);
+        }
+        test.removeFirst();
+        test.removeFirst();
+        test.removeFirst();
+        System.out.println("What's in it now?" + test.first + test.last);
+        test.removeFirst();
     }
 }

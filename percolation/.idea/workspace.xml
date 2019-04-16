@@ -96,9 +96,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="173" />
+    <option name="x" value="570" />
+    <option name="y" value="23" />
     <option name="width" value="1271" />
-    <option name="height" value="877" />
+    <option name="height" value="1177" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -178,7 +179,7 @@
     </configuration>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="173" width="1271" height="877" extended-state="0" />
+    <frame x="570" y="23" width="1271" height="1177" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2488" />
