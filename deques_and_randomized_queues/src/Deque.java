@@ -24,6 +24,12 @@ public class Deque<Item> implements Iterable<Item> {
         Node previous;
     }
 
+    private Deque() {
+        first = null;
+        last = null;
+        n = 0;
+    }
+
     public boolean isEmpty() {
         return n == 0;
     }
