@@ -31,7 +31,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         items = temp;
     }
 
-
     public boolean isEmpty() {
         return n == 0;
     }
@@ -40,26 +39,42 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return n;
     }
 
-
     public void enqueue(Item item) {
+        if (item = null) {
+            throw new java.lang.IllegalArgumentException("Illegal argument");
+        }
         if (n == items.length) resize(2 * items.length);
         items[n++] = item;
-
     }
 
     public Item dequeue() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Nothing to remove!");
+        }
         // Remove and return a random item
-        int randomIndex = StdRandom.uniform(1, n + 1);
+        int randomIndex = StdRandom.uniform(n);
         Item item = items[randomIndex];
-        items[randomIndex] = null;
+
+        // If item we remove is not at end of queue, remove last item
+        // and replace with item we're 'removing'
+        if (randomIndex != n) { // Edge case if randomIndex is at end
+            items[randomIndex] = items[n];
+            items[n] = null;
+        } else { // otherwise, just remove last item
+            items[randomIndex] = null;
+        }
+
         --n;
         if (n > 0 && n == items.length / 4) resize(items.length / 2);
         return item;
     }
 
     public Item sample() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Nothing to see!");
+        }
         // return a random item (but do not remove it)
-        int randomIndex = StdRandom.uniform(1, n + 1);
+        int randomIndex = StdRandom.uniform(n);
         Item item = items[randomIndex];
         return item;
     }
@@ -70,7 +85,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     private class ArrayIterator implements Iterator<Item> {
-        
+
+
     }
 
     public static void main(String[] args)   // unit testing (optional)
