@@ -45,6 +45,8 @@ public class Deque<Item> implements Iterable<Item> {
         first.next = oldfirst;
         if (isEmpty()) {
             last = first;
+        } else {
+            oldfirst.previous = first;
         }
         n++;
     }
@@ -81,8 +83,12 @@ public class Deque<Item> implements Iterable<Item> {
         }
         Item returnItem = last.item;
         last = last.previous; // 2nd to last node is last
-        last.next = null; // now make previous last empty
+        //last.next = null; // now make previous last empty
         --n;
+        if (isEmpty()) {
+            first = null;
+            last = null;
+        }
         return returnItem;
     }                 // remove and return the item
     // from the end
@@ -113,25 +119,8 @@ public class Deque<Item> implements Iterable<Item> {
         test.addFirst(2);
         test.addFirst(4);
         test.addFirst(6);
-        test.addLast(12);
-        test.addLast(24);
-        for (int i : test) {
-            System.out.println(i);
-        }
-        System.out.println("Size: " + test.size());
-        System.out.println(test.isEmpty());
-        System.out.println("Getting first" + test.removeFirst());
-        for (int i : test) {
-            System.out.println(i);
-        }
-        System.out.println("Getting last" + test.removeLast());
-        for (int i : test) {
-            System.out.println(i);
-        }
-        test.removeFirst();
-        test.removeFirst();
-        test.removeFirst();
-        System.out.println("What's in it now?" + test.first + test.last);
-        test.removeFirst();
+        System.out.println(test.removeFirst());
+        System.out.println(test.removeFirst());
+        System.out.println(test.removeFirst());
     }
 }
