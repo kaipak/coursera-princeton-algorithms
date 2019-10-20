@@ -32,7 +32,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         for (int i = 0; i < n; i++) {
             temp[i] = items[i];
         }
-
         items = temp;
     }
 
