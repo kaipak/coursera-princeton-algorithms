@@ -21,9 +21,15 @@ public class Permutation {
         while (!StdIn.isEmpty()) {
             randomQueue.enqueue(StdIn.readString());
         }
-
+        int count = 0;
         for (String i : randomQueue) {
-            System.out.println(i);
+            if (count < k) {
+                System.out.println(i);
+            } else {
+                break;
+            }
+            count++;
+
         }
     }
 }
