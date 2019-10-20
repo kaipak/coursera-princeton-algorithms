@@ -5,6 +5,7 @@
  *
  *
  *  Written:       04/19/2019
+ *  Updated:       10/19/2019
  *
  *  % javac RandomizedQueue.java
  *
