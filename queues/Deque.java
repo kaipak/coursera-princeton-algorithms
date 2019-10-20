@@ -11,9 +11,10 @@
  *
  *****************************************************************************/
 
+import edu.princeton.cs.algs4.StdOut;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import edu.princeton.cs.algs4.StdOut;
 
 public class Deque<Item> implements Iterable<Item> {
     private Node first;
@@ -41,6 +42,9 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     public void addFirst(Item item) {
+        if (item == null) {
+            throw new IllegalArgumentException("Attempt to add a null item!");
+        }
         Node oldfirst = first;
         first = new Node();
         first.item = item;
@@ -54,6 +58,9 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     public void addLast(Item item) {
+        if (item == null) {
+            throw new IllegalArgumentException("Attempt to add a null item!");
+        }
         Node oldlast = last;
         last = new Node();
         last.item = item;
@@ -88,12 +95,13 @@ public class Deque<Item> implements Iterable<Item> {
             throw new NoSuchElementException("Nothing to remove!");
         }
         Item returnItem = last.item;
-        last = last.previous; // 2nd to last node is last
-        last.next = null; // now make previous last empty
         --n;
         if (isEmpty()) {
             first = null;
             last = null;
+        } else {
+            last = last.previous; // 2nd to last node is last
+            last.next = null; // now make previous last empty
         }
         return returnItem;
     }                 // remove and return the item
@@ -110,9 +118,8 @@ public class Deque<Item> implements Iterable<Item> {
             return current != null;
         }
 
-        // We don't generally want to mutate data in an iterator but this
-        // needs to still be defined.
         public void remove() {
+            throw new UnsupportedOperationException("This method is not supported.");
         }
 
         public Item next() {
@@ -146,6 +153,20 @@ public class Deque<Item> implements Iterable<Item> {
         System.out.println("Size of deque is now " + test.size());
         test.addLast(128);
         test.removeLast();
+        test.removeLast();
+        test.removeLast();
+        test.removeLast();
+        test.removeLast();
+
+        System.out.println("Size of deque is now " + test.size());
+        test.addFirst(1);
+        test.removeLast();
+        System.out.println("Size of deque is now " + test.size());
+        test.addLast(888);
+        for (Integer i : test)
+            StdOut.println(i);
+        test.removeLast();
+        test.addLast(null);
 
         // Test iterator
         for (Integer i : test)
