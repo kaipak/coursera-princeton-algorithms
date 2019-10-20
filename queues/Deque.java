@@ -26,7 +26,7 @@ public class Deque<Item> implements Iterable<Item> {
         Node previous;
     }
 
-    private Deque() {
+    public Deque() {
         first = null;
         last = null;
         n = 0;
@@ -57,8 +57,12 @@ public class Deque<Item> implements Iterable<Item> {
         Node oldlast = last;
         last = new Node();
         last.item = item;
-        oldlast.next = last;
         last.previous = oldlast;
+        if (isEmpty()) {
+            first = last;
+        } else {
+            oldlast.next = last;
+        }
         n++;
     }
 
@@ -106,6 +110,8 @@ public class Deque<Item> implements Iterable<Item> {
             return current != null;
         }
 
+        // We don't generally want to mutate data in an iterator but this
+        // needs to still be defined.
         public void remove() {
         }
 
@@ -124,9 +130,11 @@ public class Deque<Item> implements Iterable<Item> {
 
         // Test creation of integer deque and all methods
         Deque<Integer> test = new Deque<Integer>();
-        test.addFirst(2);
-        test.addFirst(4);
-        test.addFirst(6);
+        test.addLast(2);
+        test.addLast(4);
+        test.addLast(6);
+        test.addFirst(42);
+        test.addFirst(82);
         System.out.println("Added, 2, 4, 6");
         for (Integer i : test)
             StdOut.println(i);
